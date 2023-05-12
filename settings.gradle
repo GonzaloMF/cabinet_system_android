@@ -1,10 +1,5 @@
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
+rootProject.name = 'csc306_project'
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -12,5 +7,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "csc306_project"
+
 include ':app'

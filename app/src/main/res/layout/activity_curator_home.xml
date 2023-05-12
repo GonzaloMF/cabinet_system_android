@@ -35,7 +35,7 @@ android:background="#F5F5F5">
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_search"
+
         android:contentDescription="Search"
         android:layout_gravity="center_vertical"/>
 
@@ -68,7 +68,7 @@ android:background="#F5F5F5">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:background="@drawable/cabinet_bg"
+
                 android:layout_marginBottom="8dp"
                 android:clickable="true">
 
@@ -81,12 +81,12 @@ android:background="#F5F5F5">
                     android:textStyle="bold"
                     android:textColor="#333333"/>
 
-                <ImageView
+                <!-- ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_arrow_right"
                     android:contentDescription="View Cabinet"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"/-->
 
             </LinearLayout>
             <LinearLayout
@@ -94,7 +94,7 @@ android:background="#F5F5F5">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:background="@drawable/cabinet_bg"
+
                 android:layout_marginBottom="8dp"
                 android:clickable="true">
 
@@ -110,7 +110,7 @@ android:background="#F5F5F5">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
+
                     android:contentDescription="View Cabinet"
                     android:layout_gravity="center_vertical"/>
 
@@ -120,7 +120,7 @@ android:background="#F5F5F5">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:background="@drawable/cabinet_bg"
+
                 android:layout_marginBottom="8dp"
                 android:clickable="true">
 
@@ -136,7 +136,7 @@ android:background="#F5F5F5">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
+
                     android:contentDescription="View Cabinet"
                     android:layout_gravity="center_vertical"/>
 
@@ -146,7 +146,7 @@ android:background="#F5F5F5">
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:background="@drawable/cabinet_bg"
+
                 android:layout_marginBottom="8dp"
                 android:clickable="true">
 
@@ -162,7 +162,7 @@ android:background="#F5F5F5">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
+
                     android:contentDescription="View Cabinet"
                     android:layout_gravity="center_vertical"/>
 

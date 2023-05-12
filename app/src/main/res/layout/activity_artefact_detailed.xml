@@ -61,13 +61,13 @@
             android:orientation="horizontal">
 
             <!-- Image of the artifact -->
-            <ImageView
+            <!-- ImageView
                 android:id="@+id/artefactImage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:scaleType="fitCenter"
-                android:src="@drawable/artefact_image" />
+                android:src="@drawable/artefact_image" / -->
 
             <!-- Video of the artifact -->
             <VideoView

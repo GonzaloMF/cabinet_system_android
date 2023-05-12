@@ -17,7 +17,7 @@
             android:id="@+id/header_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="src/images/test.jpg"/>
+            android:src="@drawable/test"/>
 
         <TextView
             android:id="@+id/header_text"
@@ -62,14 +62,45 @@
         android:layout_margin="16dp"
         android:text="Login"/>
 
+    <!-- Create User button -->
+    <Button
+        android:id="@+id/create_user_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_button"
+        android:layout_margin="16dp"
+        android:text="Create User"
+        android:backgroundTint="#4CAF50"/>
+
     <!-- Sign up link -->
     <TextView
         android:id="@+id/signup_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login_button"
+        android:layout_below="@id/create_user_button"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text="Don't have an account? Sign up."
         android:textColor="#333333"/>
+
+    <!-- Guest login button -->
+    <Button
+        android:id="@+id/guest_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signup_link"
+        android:layout_margin="16dp"
+        android:text="Login as Guest"/>
+
+    <!-- Create Curator button -->
+    <Button
+        android:id="@+id/create_curator_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/create_user_button"
+        android:layout_margin="16dp"
+        android:text="Create Curator"
+        android:textColor="#000000"
+        android:backgroundTint="#FFD700"/>
+
 </RelativeLayout>
