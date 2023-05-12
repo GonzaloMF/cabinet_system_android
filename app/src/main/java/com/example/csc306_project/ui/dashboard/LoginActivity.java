@@ -1,4 +1,4 @@
-package com.example.csc306_project.ui;
+package com.example.csc306_project.ui.dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.csc306_project.R;
+import com.example.csc306_project.ui.home.CuratorHomeActivity;
+import com.example.csc306_project.ui.home.GuestHomeActivity;
+import com.example.csc306_project.ui.home.UserHomeActivity;
+
 import db.DatabaseHelper;
 
 public class LoginActivity extends AppCompatActivity {
@@ -45,18 +49,16 @@ public class LoginActivity extends AppCompatActivity {
         guestLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, CuratorHomeActivity.class);
+                Intent intent = new Intent(LoginActivity.this, GuestHomeActivity.class);
                 startActivity(intent);
             }
         });
-
         createUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 createUser(username.getText().toString(), password.getText().toString());
             }
         });
-
         createCuratorButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,12 +69,18 @@ public class LoginActivity extends AppCompatActivity {
 
     private void validateLogin(String user, String pass) {
         String role = databaseHelper.getUserRole(user, pass);
+        if (user.isEmpty() || pass.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(user).matches()) {
+            Toast.makeText(getApplicationContext(), "Please enter a valid email and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (role != null) {
             Intent intent = null;
             if (role.equals("curator")) {
                 intent = new Intent(LoginActivity.this, CuratorHomeActivity.class);
+                intent.putExtra("username", user);
             } else if (role.equals("standard")) {
                 intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+                intent.putExtra("username", user);
             }
             startActivity(intent);
         } else {
@@ -81,10 +89,18 @@ public class LoginActivity extends AppCompatActivity {
     }
     
     private void createUser(String user, String pass) {
+        if (user.isEmpty() || pass.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(user).matches()) {
+            Toast.makeText(getApplicationContext(), "Please enter a valid email and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
         databaseHelper.addUser(user, pass, "standard");
         Toast.makeText(getApplicationContext(), "User created", Toast.LENGTH_SHORT).show();
     }
     private void createCurator(String user, String pass) {
+        if (user.isEmpty() || pass.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(user).matches()) {
+            Toast.makeText(getApplicationContext(), "Please enter a valid email and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
         databaseHelper.addCurator(user, pass);
         Toast.makeText(getApplicationContext(), "Curator created", Toast.LENGTH_SHORT).show();
     }

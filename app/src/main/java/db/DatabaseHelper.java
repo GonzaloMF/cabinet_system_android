@@ -119,5 +119,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return role;
     }
 
-
+     /*public void deleteUser(String user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_USERS, KEY_USERNAME + " = ?", new String[]{user});
+        db.close();
+    }*/
 }

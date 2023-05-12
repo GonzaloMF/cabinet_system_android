@@ -1,4 +1,4 @@
-package com.example.csc306_project.ui;
+package com.example.csc306_project.ui.dashboard;
 
 import android.os.Bundle;
 import android.widget.Button;

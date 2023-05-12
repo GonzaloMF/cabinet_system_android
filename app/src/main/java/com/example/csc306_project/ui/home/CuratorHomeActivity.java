@@ -1,8 +1,9 @@
-package com.example.csc306_project.ui;
+package com.example.csc306_project.ui.home;
 
 import android.os.Bundle;
 // import android.content.Intent;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,22 +21,15 @@ public class CuratorHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_curator_home);
 
         addArtefactButton = (Button) findViewById(R.id.addArtefactButton);
-        addArtefactInfoButton = (Button) findViewById(R.id.add_artefact_button);
         viewPendingButton = (Button) findViewById(R.id.view_pending_button);
-
+        String username = getIntent().getStringExtra("username");
+        TextView welcomeTextView = (TextView) findViewById(R.id.welcome_text_view);
+        welcomeTextView.setText("Welcome, " + username + "!");
         /*
         addArtefactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CuratorHomeActivity.this, AddArtefactActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        addArtefactInfoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CuratorHomeActivity.this, AddArtefactInfoActivity.class);
                 startActivity(intent);
             }
         });
