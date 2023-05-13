@@ -38,7 +38,7 @@ public class ArtefactDetailActivity extends AppCompatActivity {
                 String description = artefactDescription.getText().toString();
                 String history = artefactHistory.getText().toString();
 
-                Artefact newArtefact = new Artefact(title, description, history);
+                Artefact newArtefact = new Artefact(-1, title, description, history);
                 DatabaseHelper databaseHelper = new DatabaseHelper(ArtefactDetailActivity.this);
                 databaseHelper.addArtefact(newArtefact);
 

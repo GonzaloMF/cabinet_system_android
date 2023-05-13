@@ -143,16 +143,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ARTEFACT_DESCRIPTION, artefact.getDescription());
         values.put(COLUMN_ARTEFACT_HISTORY, artefact.getHistory());
 
-        db.insert(TABLE_ARTEFACTS, null, values);
-
+        long newId = db.insert(TABLE_ARTEFACTS, null, values);
+        artefact.setId((int) newId);
         db.close();
     }
+
 
     // Get new artefacts
     public List<Artefact> getArtefacts() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] projection = { COLUMN_ARTEFACT_TITLE, COLUMN_ARTEFACT_DESCRIPTION, COLUMN_ARTEFACT_HISTORY };
+        String[] projection = { COLUMN_ARTEFACT_ID, COLUMN_ARTEFACT_TITLE, COLUMN_ARTEFACT_DESCRIPTION, COLUMN_ARTEFACT_HISTORY };
 
         Cursor cursor = db.query(
                 TABLE_ARTEFACTS,
@@ -166,10 +167,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         List<Artefact> artefacts = new ArrayList<>();
         while(cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_ID));
             String title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_TITLE));
             String description = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_DESCRIPTION));
             String history = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_HISTORY));
-            Artefact artefact = new Artefact(title, description, history);
+            Artefact artefact = new Artefact(id, title, description, history);
             artefacts.add(artefact);
         }
         cursor.close();
@@ -177,6 +179,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return artefacts;
     }
+
 
     // Delete artefacts
     public void deleteArtefact(int id) {
@@ -186,11 +189,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     /** ****************************************************** */
 
-
-
-     /*public void deleteUser(String user) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_USERS, KEY_USERNAME + " = ?", new String[]{user});
-        db.close();
-    }*/
 }

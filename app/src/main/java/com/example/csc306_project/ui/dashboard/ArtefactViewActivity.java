@@ -29,6 +29,8 @@ public class ArtefactViewActivity extends AppCompatActivity {
             artefactTitle.setText(artefact.getTitle());
             artefactDescription.setText(artefact.getDescription());
             artefactHistory.setText(artefact.getHistory());
+            // Para usar el ID en algún lugar, puedes hacer algo como esto:
+            // someTextView.setText(String.valueOf(artefact.getId()));
         }
     }
 }

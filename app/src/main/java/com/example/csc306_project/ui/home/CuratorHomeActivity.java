@@ -1,12 +1,15 @@
 package com.example.csc306_project.ui.home;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.csc306_project.R;
@@ -73,9 +76,10 @@ public class CuratorHomeActivity extends AppCompatActivity {
         artefactsList.removeAllViews();
 
         for (Artefact artefact : artefacts) {
-            TextView textView = new TextView(this);
+            View artefactView = getLayoutInflater().inflate(R.layout.artefact_item, null, false);
+
+            TextView textView = artefactView.findViewById(R.id.artefact_title);
             textView.setText(artefact.getTitle());
-            textView.setTextSize(16);
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -85,8 +89,26 @@ public class CuratorHomeActivity extends AppCompatActivity {
                 }
             });
 
-            artefactsList.addView(textView);
+            ImageView deleteButton = artefactView.findViewById(R.id.delete_artefact);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(CuratorHomeActivity.this)
+                            .setTitle("Delete Artefact")
+                            .setMessage("Are you sure you want to delete this artefact?")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    databaseHelper.deleteArtefact((int) artefact.getId());
+                                    updateArtefactsList();
+                                }})
+                            .setNegativeButton(android.R.string.no, null).show();
+                }
+            });
+
+            artefactsList.addView(artefactView);
         }
     }
+
 
 }

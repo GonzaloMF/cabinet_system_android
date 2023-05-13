@@ -82,13 +82,6 @@ android:background="#F5F5F5">
                     android:textStyle="bold"
                     android:textColor="#333333"/>
 
-                <!-- ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_right"
-                    android:contentDescription="View Cabinet"
-                    android:layout_gravity="center_vertical"/-->
-
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/cabinet_2"
@@ -142,38 +135,28 @@ android:background="#F5F5F5">
                     android:layout_gravity="center_vertical"/>
 
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/cabinet_4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
 
-                android:layout_marginBottom="8dp"
-                android:clickable="true">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Cabinet 4 - Hardware"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="#333333"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:contentDescription="View Cabinet"
-                    android:layout_gravity="center_vertical"/>
-
-            </LinearLayout>
             <LinearLayout
                 android:id="@+id/artefacts_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp" />
+            <LinearLayout
+                android:id="@+id/artefact_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/artefact_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </ScrollView>
 
