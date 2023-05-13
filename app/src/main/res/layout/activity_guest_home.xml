@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:padding="16dp"
-android:background="#F5F5F5">
-
-<TextView
-    android:id="@+id/welcome_text_view"
-    android:text="Welcome, [username]!"
-    android:textSize="24sp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    android:textColor="#333333"/>
-
-<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="#FFFFFF"
-    android:elevation="4dp"
-    android:padding="8dp">
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F5">
 
-    <EditText
-        android:id="@+id/searchBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:hint="Search artefacts..."
-        android:inputType="text"
-        android:maxLines="1"
-        android:imeOptions="actionSearch"/>
-
-    <ImageView
+    <TextView
+        android:text="Welcome new guest!"
+        android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:textColor="#333333"/>
 
-        android:contentDescription="Search"
-        android:layout_gravity="center_vertical"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        android:padding="8dp">
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/searchBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Search artefacts..."
+            android:inputType="text"
+            android:maxLines="1"
+            android:imeOptions="actionSearch"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:contentDescription="Search"
+            android:layout_gravity="center_vertical"/>
+
+    </LinearLayout>
 
     <TextView
         android:text="Select a cabinet:"
@@ -168,26 +167,6 @@ android:background="#F5F5F5">
                     android:layout_gravity="center_vertical"/>
 
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/artefacts_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp" />
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/addArtefactButton"
-        android:text="Add Artefact"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <Button
-        android:id="@+id/view_pending_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Pending Information" />
-
 </LinearLayout>

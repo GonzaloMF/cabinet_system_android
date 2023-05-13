@@ -25,7 +25,8 @@
         <activity android:name=".ui.home.CuratorHomeActivity" />
         <activity android:name=".ui.home.UserHomeActivity" />
         <activity android:name=".ui.home.GuestHomeActivity" />
-
+        <activity android:name=".ui.dashboard.ArtefactDetailActivity" />
+        <activity android:name=".ui.dashboard.ArtefactViewActivity" />
     </application>
 
 </manifest>
