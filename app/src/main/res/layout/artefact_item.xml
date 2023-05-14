@@ -12,15 +12,28 @@
         android:layout_weight="1"
         android:textSize="16sp" />
 
-    <ImageView
-        android:id="@+id/delete_artefact"
+    <!--Button
+        android:id="@+id/accept_artefact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_delete_artefact" />
+        android:text="Accept" /-->
+
+    <!--Button
+        android:id="@+id/reject_artefact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reject" /-->
+
+    <ImageView
+        android:id="@+id/delete_artefact"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="12dp"
+        android:src="@drawable/delete" />
 
     <ImageView
         android:id="@+id/update_artefact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_update_artefact" />
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/update" />
 </LinearLayout>

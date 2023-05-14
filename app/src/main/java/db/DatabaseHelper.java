@@ -204,7 +204,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return artefacts;
     }
 
-
     // Delete artefacts
     public void deleteArtefact(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -213,4 +212,86 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     /** ****************************************************** */
 
+    /**
+     * Implementation for Pending artefacts
+     */
+    /*
+    public List<Artefact> getPendingArtefacts() {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {COLUMN_ARTEFACT_ID,
+                COLUMN_ARTEFACT_TITLE,
+                COLUMN_ARTEFACT_DESCRIPTION,
+                COLUMN_ARTEFACT_HISTORY,
+                COLUMN_ARTEFACT_IMAGE_PATH,
+                COLUMN_ARTEFACT_PENDING
+        };
+
+        String selection = COLUMN_ARTEFACT_PENDING + " = ?";
+        String[] selectionArgs = {"1"};
+
+        Cursor cursor = db.query(
+                TABLE_ARTEFACTS,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        List<Artefact> artefacts = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_ID));
+            String title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_TITLE));
+            String description = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_DESCRIPTION));
+            String history = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_HISTORY));
+            String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_IMAGE_PATH));
+            boolean isPending = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_PENDING)) == 1;
+
+            Artefact artefact = new Artefact(id, title, description, history, imagePath, isPending);
+            artefacts.add(artefact);
+        }
+        cursor.close();
+        db.close();
+
+        return artefacts;
+    }
+
+
+    public boolean isUserCurator(String username) {
+        // Get the database in read mode
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define a projection that specifies which columns from the database to use
+        String[] projection = {COLUMN_ROLE};
+
+        // Define a selection criteria
+        String selection = COLUMN_USERNAME + " = ?";
+        String[] selectionArgs = {username};
+
+        // Query the database
+        Cursor cursor = db.query(
+                TABLE_USERS,   // The table to query
+                projection,    // The columns to return
+                selection,     // The columns for the WHERE clause
+                selectionArgs, // The values for the WHERE clause
+                null,          // Don't group the rows
+                null,          // Don't filter by row groups
+                null           // The sort order
+        );
+
+        boolean isCurator = false;
+        if (cursor.moveToFirst()) {
+            String role = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ROLE));
+            isCurator = "curator".equals(role);
+        }
+
+        cursor.close();
+        db.close();
+
+        return isCurator;
+    }
+
+     */
 }

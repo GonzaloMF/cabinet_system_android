@@ -96,7 +96,7 @@ public class ArtefactDetailActivity extends AppCompatActivity {
                     databaseHelper.updateArtefact(updatedArtefact);
                     Toast.makeText(ArtefactDetailActivity.this, "Artefact updated successfully!", Toast.LENGTH_SHORT).show();
                 }
-
+                
                 finish();  // This will finish this activity and go back to the previous one
             }
         });
