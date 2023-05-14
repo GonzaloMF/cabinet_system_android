@@ -62,8 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Aquí puedes manejar las actualizaciones a la base de datos
-        // Se llama cuando se incrementa la DATABASE_VERSION
+
+        // Calls the database everytime that the database is updated
         if (oldVersion < 2) {
             db.execSQL(SQL_CREATE_ARTEFACTS);
         }
@@ -74,7 +74,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     *
      * Functions about user
      */
     // Add new user
@@ -137,7 +136,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     /**
-     *
      * Functions about artefacts
      */
     // Add new artefacts
@@ -154,7 +152,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         artefact.setId((int) newId);
         db.close();
     }
+    // Update artefacts
+    public void updateArtefact(Artefact artefact) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ARTEFACT_TITLE, artefact.getTitle());
+        values.put(COLUMN_ARTEFACT_DESCRIPTION, artefact.getDescription());
+        values.put(COLUMN_ARTEFACT_HISTORY, artefact.getHistory());
+        values.put(COLUMN_ARTEFACT_IMAGE_PATH, artefact.getImagePath());
+
+        db.update(TABLE_ARTEFACTS, values, COLUMN_ARTEFACT_ID + " = ?", new String[]{String.valueOf(artefact.getId())});
+        db.close();
+    }
 
     // Get new artefacts
     public List<Artefact> getArtefacts() {

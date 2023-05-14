@@ -18,7 +18,9 @@ import com.example.csc306_project.ui.dashboard.ArtefactDetailActivity;
 import com.example.csc306_project.ui.dashboard.ArtefactViewActivity;
 import com.example.csc306_project.ui.models.Artefact;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import db.DatabaseHelper;
 
@@ -28,6 +30,7 @@ public class CuratorHomeActivity extends AppCompatActivity {
     private Button viewPendingButton;
     private DatabaseHelper databaseHelper;
     private LinearLayout artefactsList;
+    private Map<Long, Artefact> artefactsMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +64,17 @@ public class CuratorHomeActivity extends AppCompatActivity {
         updateArtefactsList();
     }
 
+
     private void updateArtefactsList() {
         List<Artefact> artefacts = databaseHelper.getArtefacts();
 
         artefactsList.removeAllViews();
 
         for (Artefact artefact : artefacts) {
+
+            // Add each artefact to the map with their ID as a key
+            artefactsMap.put(artefact.getId(), artefact);
+
             View artefactView = getLayoutInflater().inflate(R.layout.artefact_item, null, false);
 
             TextView textView = artefactView.findViewById(R.id.artefact_title);
@@ -75,11 +83,12 @@ public class CuratorHomeActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(CuratorHomeActivity.this, ArtefactViewActivity.class);
-                    intent.putExtra("artefact", artefact);
+                    intent.putExtra("artefact", artefactsMap.get(artefact.getId()));  // pass the artefact object
                     startActivity(intent);
                 }
             });
 
+            // Delete artefact
             ImageView deleteButton = artefactView.findViewById(R.id.delete_artefact);
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,10 +101,23 @@ public class CuratorHomeActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     databaseHelper.deleteArtefact((int) artefact.getId());
                                     updateArtefactsList();
-                                }})
+                                }
+                            })
                             .setNegativeButton(android.R.string.no, null).show();
                 }
             });
+
+            // Update artefact
+            ImageView updateButton = artefactView.findViewById(R.id.update_artefact);
+            updateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CuratorHomeActivity.this, ArtefactDetailActivity.class);
+                    intent.putExtra("artefact", artefactsMap.get(artefact.getId()));  // pass the artefact object
+                    startActivity(intent);
+                }
+            });
+
 
             artefactsList.addView(artefactView);
         }

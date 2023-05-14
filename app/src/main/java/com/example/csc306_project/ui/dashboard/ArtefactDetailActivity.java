@@ -31,6 +31,8 @@ public class ArtefactDetailActivity extends AppCompatActivity {
     private String imagePath;
     private Uri selectedImageUri;
 
+    private long artefactId = -1;
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,20 @@ public class ArtefactDetailActivity extends AppCompatActivity {
             }
         });
 
+        Artefact artefact = (Artefact) getIntent().getSerializableExtra("artefact");
+        if (artefact != null) {
+            // We are editing an existing artefact
+            artefactId = artefact.getId();
+            artefactTitle.setText(artefact.getTitle());
+            artefactDescription.setText(artefact.getDescription());
+            artefactHistory.setText(artefact.getHistory());
+
+            if (artefact.getImagePath() != null) {
+                Uri imageUri = Uri.parse(artefact.getImagePath());
+                artefactImage.setImageURI(imageUri);
+            }
+        }
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,17 +84,23 @@ public class ArtefactDetailActivity extends AppCompatActivity {
                 if (selectedImageUri != null) {
                     imagePath = getPathFromUri(selectedImageUri);
                 }
-
-                Artefact newArtefact = new Artefact(-1, title, description, history, imagePath);
                 DatabaseHelper databaseHelper = new DatabaseHelper(ArtefactDetailActivity.this);
-                databaseHelper.addArtefact(newArtefact);
+                if (artefactId == -1) {
+                    // We are adding a new artefact
+                    Artefact newArtefact = new Artefact(-1, title, description, history, imagePath);
+                    databaseHelper.addArtefact(newArtefact);
+                    Toast.makeText(ArtefactDetailActivity.this, "Artefact added successfully!", Toast.LENGTH_SHORT).show();
+                } else {
+                    // We are updating an existing artefact
+                    Artefact updatedArtefact = new Artefact(artefactId, title, description, history, imagePath);
+                    databaseHelper.updateArtefact(updatedArtefact);
+                    Toast.makeText(ArtefactDetailActivity.this, "Artefact updated successfully!", Toast.LENGTH_SHORT).show();
+                }
 
-
-                Toast.makeText(ArtefactDetailActivity.this, "Artefact added successfully!", Toast.LENGTH_SHORT).show();
-
+                finish();  // This will finish this activity and go back to the previous one
             }
-
         });
+
     }
 
     @Override
