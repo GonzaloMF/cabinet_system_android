@@ -3,9 +3,11 @@ package com.example.csc306_project.ui.home;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
-
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -30,6 +32,7 @@ public class CuratorHomeActivity extends AppCompatActivity {
     private Button viewPendingButton;
     private DatabaseHelper databaseHelper;
     private LinearLayout artefactsList;
+    private EditText searchBox;
     private Map<Long, Artefact> artefactsMap = new HashMap<>();
 
     @Override
@@ -39,11 +42,12 @@ public class CuratorHomeActivity extends AppCompatActivity {
 
         databaseHelper = new DatabaseHelper(this);
         artefactsList = findViewById(R.id.artefacts_list);
+        searchBox = findViewById(R.id.searchBox);
 
-        addArtefactButton = (Button) findViewById(R.id.addArtefactButton);
-        viewPendingButton = (Button) findViewById(R.id.view_pending_button);
+        addArtefactButton = findViewById(R.id.addArtefactButton);
+        viewPendingButton = findViewById(R.id.view_pending_button);
         String username = getIntent().getStringExtra("username");
-        TextView welcomeTextView = (TextView) findViewById(R.id.welcome_text_view);
+        TextView welcomeTextView = findViewById(R.id.welcome_text_view);
         welcomeTextView.setText("Welcome, " + username + "!");
 
         addArtefactButton.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +59,21 @@ public class CuratorHomeActivity extends AppCompatActivity {
         });
         // View pending button here
 
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                updateArtefactsList(s.toString());
+            }
+        });
+
         updateArtefactsList();
     }
 
@@ -64,15 +83,20 @@ public class CuratorHomeActivity extends AppCompatActivity {
         updateArtefactsList();
     }
 
-
     private void updateArtefactsList() {
+        updateArtefactsList("");
+    }
+
+    private void updateArtefactsList(String searchText) {
         List<Artefact> artefacts = databaseHelper.getArtefacts();
 
         artefactsList.removeAllViews();
 
         for (Artefact artefact : artefacts) {
+            if (!artefact.getTitle().toLowerCase().contains(searchText.toLowerCase())) {
+                continue;
+            }
 
-            // Add each artefact to the map with their ID as a key
             artefactsMap.put(artefact.getId(), artefact);
 
             View artefactView = getLayoutInflater().inflate(R.layout.artefact_item, null, false);
@@ -88,7 +112,6 @@ public class CuratorHomeActivity extends AppCompatActivity {
                 }
             });
 
-            // Delete artefact
             ImageView deleteButton = artefactView.findViewById(R.id.delete_artefact);
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,14 +123,13 @@ public class CuratorHomeActivity extends AppCompatActivity {
                             .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     databaseHelper.deleteArtefact((int) artefact.getId());
-                                    updateArtefactsList();
+                                    updateArtefactsList(searchBox.getText().toString());
                                 }
                             })
                             .setNegativeButton(android.R.string.no, null).show();
                 }
             });
 
-            // Update artefact
             ImageView updateButton = artefactView.findViewById(R.id.update_artefact);
             updateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,10 +140,8 @@ public class CuratorHomeActivity extends AppCompatActivity {
                 }
             });
 
-
             artefactsList.addView(artefactView);
         }
     }
-
-
 }
+
