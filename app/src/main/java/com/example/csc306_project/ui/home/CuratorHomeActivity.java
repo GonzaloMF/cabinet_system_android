@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,17 +50,7 @@ public class CuratorHomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        /*
-        viewPendingButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CuratorHomeActivity.this, ViewPendingActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        */
+        // View pending button here
 
         updateArtefactsList();
     }

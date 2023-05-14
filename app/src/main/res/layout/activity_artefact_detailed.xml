@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,6 +18,7 @@
             android:text="Title"
             android:textSize="24sp"
             android:textStyle="bold" />
+
         <EditText
             android:id="@+id/artefactTitle"
             android:layout_width="wrap_content"
@@ -34,6 +36,7 @@
             android:text="Description"
             android:textSize="24sp"
             android:textStyle="bold" />
+
         <EditText
             android:id="@+id/artefactDescription"
             android:layout_width="match_parent"
@@ -60,15 +63,18 @@
             android:hint="Add here about the history of the artefact"
             android:textSize="18sp" />
 
-        <!-- Media section -->
-        <TextView
-            android:id="@+id/artefactMediaTitle"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/artefactImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_image" />
+
+        <Button
+            android:id="@+id/selectImageButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Media"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:text="Select Image" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,70 +82,9 @@
             android:layout_marginBottom="16dp"
             android:orientation="horizontal">
 
-            <!-- Image of the artifact -->
-            <!-- ImageView
-                android:id="@+id/artefactImage"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:scaleType="fitCenter"
-                android:src="@drawable/artefact_image" / -->
-
-            <!-- Video of the artifact -->
-            <VideoView
-                android:id="@+id/artefactVideo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:visibility="gone" />
-
         </LinearLayout>
 
-        <!-- Audio tours section -->
-        <TextView
-            android:id="@+id/artefactAudioTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Audio Tours"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/artefactAudioSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp" />
-
         <!-- User submissions section -->
-        <Button
-            android:id="@+id/shareButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Share" />
-
-        <Button
-            android:id="@+id/favouritesButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add to Favourites" />
-
-        <TextView
-            android:id="@+id/feedbackTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Feedback"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/feedbackInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:hint="Enter your feedback here"
-            android:inputType="textMultiLine" />
         <Button
             android:id="@+id/submitButton"
             android:layout_width="wrap_content"

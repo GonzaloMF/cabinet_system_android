@@ -8,13 +8,14 @@ public class Artefact implements Serializable {
     private String title;
     private String description;
     private String history;
+    private String imagePath;
 
-
-    public Artefact(long id, String title, String description, String history) {
+    public Artefact(long id, String title, String description, String history, String imagePath) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.history = history;
+        this.imagePath = imagePath;
     }
     /**
      * Gets the id of the artefact.
@@ -70,4 +71,18 @@ public class Artefact implements Serializable {
     public void setHistory(String history) {
         this.history = history;
     }
+
+    /**
+     * Gets image of the artefact.
+     */
+    public String getImagePath() {
+        return imagePath;
+    }
+    /**
+     * Sets image of the artefact.
+     */
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
 }

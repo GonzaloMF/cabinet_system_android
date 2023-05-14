@@ -14,7 +14,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "UserManager.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Table names
     public static final String TABLE_USERS = "users";
@@ -31,6 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ARTEFACT_TITLE = "title";
     public static final String COLUMN_ARTEFACT_DESCRIPTION = "description";
     public static final String COLUMN_ARTEFACT_HISTORY = "history";
+    public static final String COLUMN_ARTEFACT_IMAGE_PATH = "image_path";
 
     // Creates, SQL queries
     private static final String SQL_CREATE_USERS =
@@ -45,7 +46,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     COLUMN_ARTEFACT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                     COLUMN_ARTEFACT_TITLE + " TEXT," +
                     COLUMN_ARTEFACT_DESCRIPTION + " TEXT," +
-                    COLUMN_ARTEFACT_HISTORY + " TEXT)";
+                    COLUMN_ARTEFACT_HISTORY + " TEXT," +
+                    COLUMN_ARTEFACT_IMAGE_PATH + " TEXT)";
 
 
     public DatabaseHelper(Context context) {
@@ -64,6 +66,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Se llama cuando se incrementa la DATABASE_VERSION
         if (oldVersion < 2) {
             db.execSQL(SQL_CREATE_ARTEFACTS);
+        }
+        if (oldVersion < 3) {
+            String SQL_ADD_IMAGE_PATH_TO_ARTEFACTS = "ALTER TABLE " + TABLE_ARTEFACTS + " ADD COLUMN " + COLUMN_ARTEFACT_IMAGE_PATH + " TEXT";
+            db.execSQL(SQL_ADD_IMAGE_PATH_TO_ARTEFACTS);
         }
     }
 
@@ -142,6 +148,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_ARTEFACT_TITLE, artefact.getTitle());
         values.put(COLUMN_ARTEFACT_DESCRIPTION, artefact.getDescription());
         values.put(COLUMN_ARTEFACT_HISTORY, artefact.getHistory());
+        values.put(COLUMN_ARTEFACT_IMAGE_PATH, artefact.getImagePath());
 
         long newId = db.insert(TABLE_ARTEFACTS, null, values);
         artefact.setId((int) newId);
@@ -153,7 +160,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Artefact> getArtefacts() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String[] projection = { COLUMN_ARTEFACT_ID, COLUMN_ARTEFACT_TITLE, COLUMN_ARTEFACT_DESCRIPTION, COLUMN_ARTEFACT_HISTORY };
+        String[] projection = {
+                COLUMN_ARTEFACT_ID,
+                COLUMN_ARTEFACT_TITLE,
+                COLUMN_ARTEFACT_DESCRIPTION,
+                COLUMN_ARTEFACT_HISTORY,
+                COLUMN_ARTEFACT_IMAGE_PATH
+        };
 
         Cursor cursor = db.query(
                 TABLE_ARTEFACTS,
@@ -171,7 +184,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_TITLE));
             String description = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_DESCRIPTION));
             String history = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_HISTORY));
-            Artefact artefact = new Artefact(id, title, description, history);
+            String imagePath = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ARTEFACT_IMAGE_PATH));
+            Artefact artefact = new Artefact(id, title, description, history, imagePath);
             artefacts.add(artefact);
         }
         cursor.close();

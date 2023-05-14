@@ -1,10 +1,16 @@
 package com.example.csc306_project.ui.dashboard;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +26,11 @@ public class ArtefactDetailActivity extends AppCompatActivity {
     private EditText artefactDescription;
     private EditText artefactHistory;
 
+    private static final int PICK_IMAGE = 1;
+    private ImageView artefactImage;
+    private String imagePath;
+    private Uri selectedImageUri;
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +41,22 @@ public class ArtefactDetailActivity extends AppCompatActivity {
         artefactDescription = findViewById(R.id.artefactDescription);
         artefactHistory = findViewById(R.id.artefactHistory);
 
+        // Initialize the ImageView and Button
+        artefactImage = findViewById(R.id.artefactImage);
+        Button selectImageButton = findViewById(R.id.selectImageButton);
+
         Button submitButton = findViewById(R.id.submitButton);
+
+        selectImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+            }
+        });
+
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,9 +64,15 @@ public class ArtefactDetailActivity extends AppCompatActivity {
                 String description = artefactDescription.getText().toString();
                 String history = artefactHistory.getText().toString();
 
-                Artefact newArtefact = new Artefact(-1, title, description, history);
+                String imagePath = null;
+                if (selectedImageUri != null) {
+                    imagePath = getPathFromUri(selectedImageUri);
+                }
+
+                Artefact newArtefact = new Artefact(-1, title, description, history, imagePath);
                 DatabaseHelper databaseHelper = new DatabaseHelper(ArtefactDetailActivity.this);
                 databaseHelper.addArtefact(newArtefact);
+
 
                 Toast.makeText(ArtefactDetailActivity.this, "Artefact added successfully!", Toast.LENGTH_SHORT).show();
 
@@ -48,4 +80,30 @@ public class ArtefactDetailActivity extends AppCompatActivity {
 
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE) {
+            if (resultCode == Activity.RESULT_OK) {
+                selectedImageUri = data.getData();
+                artefactImage.setImageURI(selectedImageUri);
+                imagePath = getPathFromUri(selectedImageUri);
+            }
+        }
+    }
+
+    public String getPathFromUri(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        if (cursor == null) {
+            return null;
+        }
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String s = cursor.getString(column_index);
+        cursor.close();
+        return s;
+    }
+
 }
