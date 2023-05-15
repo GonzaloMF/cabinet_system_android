@@ -292,6 +292,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return isCurator;
     }
-
      */
 }

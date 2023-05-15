@@ -71,6 +71,5 @@ public class PendingArtefactsActivity extends AppCompatActivity {
             artefactsList.addView(artefactView);
         }
     }
-
  */
 }

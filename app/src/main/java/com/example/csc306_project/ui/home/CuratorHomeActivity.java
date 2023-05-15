@@ -98,7 +98,8 @@ public class CuratorHomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateArtefactsList();
+        originalArtefacts = databaseHelper.getArtefacts();  // update the original artefacts list
+        filter(searchBox.getText().toString());  // apply the current filter
     }
 
     private void filter(String text) {
