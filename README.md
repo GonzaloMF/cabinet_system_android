@@ -35,12 +35,14 @@ This application is developed for Android and requires an API version 28.
 
 ## Usage
 
-### Login
+### Login / Registration
 
 On launching the application, you will be directed to the login page. Enter your credentials and log in according to your user role. You can use the following test credentials:
 
 - Curator: `admin@test.com` Password: `12345`
 - User: `user@test.com` Password: `12345`
+
+Also, you can create a curator or a user by adding the fields and pressing which user you like to.
 
 ### Curator
 
