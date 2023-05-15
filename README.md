@@ -8,7 +8,7 @@ By Gonzalo M. Flores (2026765)
 
 ### User Roles
 
-The system recognises three distinct user roles:
+The system recognises three distinct user role:
 
 - **Curator**: Has complete control over the artefacts, with the ability to Create, Read, Update, and Delete (CRUD) artefacts.
 - **User**: Can view existing artefacts and add new ones.
